@@ -1,3 +1,6 @@
+"""
+execute_sts_monthly_api_call()
+"""
 function execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::String; 
     data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing,AbstractLogger} = nothing)::(Union{PSResult{T}, Nothing} where T<:Any)
 

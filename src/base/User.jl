@@ -9,9 +9,8 @@ end
 
 # -- PUBLIC METHODS HERE ------------------------------------------------------- #
 """
-    build_api_user_model(path) -> {PSResult{PSError} or Result{PSUserModel}}
+    build_api_user_model(path)
 
-Takes a `path` string which points to a JSON configuration file.
 Returns either a Result{PSError} if something went wrong, or a Result{PSUserModel} object holding the user email and AlphaVantage API key.
 The PSError and PSUserModel can be accessed using the `value` field on the Result return wrapper
 """
