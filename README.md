@@ -14,9 +14,7 @@ To use ``PooksoftAlphaVantageDataStore.jl`` in your project simply issue the com
     julia> using PooksoftAlphaVantageDataStore
 
 ### Utility functions
-Function | Description
----: | ---
-[build_api_user_model](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/User.jl) | Function to build a user model object which requires an [AlphaVantage API key](https://www.alphavantage.co/support/#api-key)
+* [build_api_user_model](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/User.jl) | Function to build a user model object which requires an [AlphaVantage API key](https://www.alphavantage.co/support/#api-key)
 
 ### Stock Time Series (STS) functions
 STS functions allow the user to download daily, weekly or monthly stock price data (or adjusted data) with a frequency depending upon your [AlphaVantage](https://www.alphavantage.co/support/#support) account privileges. These functions take the form:
