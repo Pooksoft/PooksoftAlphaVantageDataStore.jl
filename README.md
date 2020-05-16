@@ -6,10 +6,9 @@
 ### Installation and Requirements
 To install this package, open the [Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/), start the package mode press `]` to enter `pkg>` mode.
 To install ``PooksoftAlphaVantageDataStore.jl``, issue the command:
-```julia
-    add https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl.git
-```
+
+    (@v1.4) pkg> add https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl.git
+
 To use ``PooksoftAlphaVantageDataStore.jl`` in your project simply issue the command:
-```julia
-    using PooksoftAlphaVantageDataStore
-```
+
+    julia> using PooksoftAlphaVantageDataStore
