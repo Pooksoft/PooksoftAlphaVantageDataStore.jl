@@ -70,19 +70,19 @@ function execute_sts_adjusted_daily_api_call(user_model::PSUserModel, stock_symb
     # some error checks -
     # is user_models valid?
     check_result = check_user_model(user_model)
-    if (check_result != nothing && typeof(check_result.value) == AVKError)
+    if (check_result != nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
     # do we have the API key?
     check_result = check_missing_api_key(user_model)
-    if (check_result != nothing && typeof(check_result.value) == AVKError)
+    if (check_result != nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
     # do we have a stock_symbol -
     check_result = check_missing_symbol(stock_symbol)
-    if (check_result != nothing && typeof(check_result.value) == AVKError)
+    if (check_result != nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
@@ -92,7 +92,7 @@ function execute_sts_adjusted_daily_api_call(user_model::PSUserModel, stock_symb
     # call to alpha_vantage_api to get data
     url = "$(alphavantage_api_url_string)?function=TIME_SERIES_DAILY_ADJUSTED&symbol=$(stock_symbol)&apikey=$(api_key)&datatype=$(string(data_type))&outputsize=$(string(outputsize))"
     api_call_result = http_get_call_with_url(url)
-    if (typeof(api_call_result.value) == AVKError)
+    if (typeof(api_call_result.value) == PSError)
         return api_call_result
     end
 
@@ -114,7 +114,7 @@ function execute_sts_adjusted_daily_api_call(user_model::PSUserModel, stock_symb
         
         # process json
         data_series_key = "Time Series (Daily)"
-        return process_raw_json_api_data_sts_adjusted(api_call_raw_data, data_series_key)
+        return process_raw_json_api_data_sts_daily_adjusted(api_call_raw_data, data_series_key)
 
     elseif (data_type == :csv)
         

@@ -111,7 +111,7 @@ function execute_sts_adjusted_weekly_api_call(user_model::PSUserModel, stock_sym
 
     if (data_type == :json)
         #process json
-        data_series_key = "Weekly Time Series"
+        data_series_key = "Weekly Adjusted Time Series"
         return process_raw_json_api_data_sts_adjusted(api_call_raw_data, data_series_key)
 
     elseif (data_type == :csv)
