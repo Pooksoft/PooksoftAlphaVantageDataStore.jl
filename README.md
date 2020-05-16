@@ -25,9 +25,9 @@ STS functions allow the user to download daily, weekly or monthly stock price da
 
 where `{*}` denotes the time frame for the data.
 
-*[execute_sts_daily_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSDaily.jl) | Download daily stock price information 
-*[execute_sts_adjusted_daily_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSDaily.jl) | Download adjusted daily stock price information
-*[execute_sts_weekly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSWeekly.jl) | Download weekly stock price information  
-*[execute_sts_adjusted_weekly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSWeekly.jl) | Download adjusted weekly stock price information
-*[execute_sts_monthly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSMonthly.jl) | Download monthly stock price information  
-*[execute_sts_adjusted_monthly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSMonthly.jl) | Download adjusted monthly stock price information
+    *[execute_sts_daily_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSDaily.jl) | Download daily stock price information 
+    *[execute_sts_adjusted_daily_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSDaily.jl) | Download adjusted daily stock price information
+    *[execute_sts_weekly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSWeekly.jl) | Download weekly stock price information  
+    *[execute_sts_adjusted_weekly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSWeekly.jl) | Download adjusted weekly stock price information
+    *[execute_sts_monthly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSMonthly.jl) | Download monthly stock price information  
+    *[execute_sts_adjusted_monthly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSMonthly.jl) | Download adjusted monthly stock price information
