@@ -1,1 +1,2 @@
 ### PooksoftAlphaVantageDataStore.jl
+Application programming interface (API) for [AlphaVantage](https://www.alphavantage.co), a leading provider of realtime and historical stock, forex (FX) data, and digital/crypto currency data feeds written in the [Julia](https://julialang.org) programming language.
