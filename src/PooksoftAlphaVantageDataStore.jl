@@ -13,6 +13,8 @@ export execute_sts_adjusted_weekly_api_call
 export execute_sts_monthly_api_call
 export execute_sts_adjusted_monthly_api_call
 
+export write_data_to_filestore
+
 # export types -
 export PSResult
 export PSUserModel

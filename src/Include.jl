@@ -17,6 +17,7 @@ include("./base/User.jl")
 include("./base/Checks.jl")
 include("./base/Log.jl")
 include("./base/Handlers.jl")
+include("./base/Filesystem.jl")
 
 # stock time series -
 include("./sts/STSDaily.jl")
