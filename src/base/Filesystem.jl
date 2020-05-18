@@ -20,3 +20,13 @@ function write_data_to_filestore(base_repository_file_path::String, function_cal
     # return -
     return final_repo_path_with_file_name
 end
+
+function read_data_from_filestore(repository_file_path::String)::DataFrame
+
+    # -
+    # checks go here ...
+    # -
+
+    # read file from repo -
+    return CSV.read(repository_file_path)
+end
