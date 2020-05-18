@@ -46,6 +46,7 @@ function execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::Str
     if logger != nothing
         log_api_call(logger, user_model, url)
     end
+    
     if (data_type == :json)
         #process json
         #this string line should match the .json of the type we are calling

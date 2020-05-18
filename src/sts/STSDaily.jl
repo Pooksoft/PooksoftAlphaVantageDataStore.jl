@@ -119,7 +119,7 @@ function execute_sts_adjusted_daily_api_call(user_model::PSUserModel, stock_symb
     elseif (data_type == :csv)
         
         #return process .csv
-        return process_raw_csv_api_data(api_call_raw_data, data_series_key)
+        return process_raw_csv_api_data(api_call_raw_data)
     else
         
         # tell user they requested an unsupported type of data
