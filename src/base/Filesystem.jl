@@ -15,7 +15,7 @@ function write_data_to_filestore(base_repository_file_path::String, function_cal
     end
 
     # write file to disk -
-    CSV.write(final_repo_path,data_frame)
+    CSV.write(final_repo_path_with_file_name,data_frame)
 
     # return -
     return final_repo_path_with_file_name
