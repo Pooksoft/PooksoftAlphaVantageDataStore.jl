@@ -152,6 +152,13 @@ version = "1.0.4"
 deps = ["Dates", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "UUIDs"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 
+[[PookTradeBase]]
+git-tree-sha1 = "b209d3a0f1772894427ae1ae129d9c5ce1cec856"
+repo-rev = "master"
+repo-url = "https://github.com/Pooksoft/PookTradeBase.git"
+uuid = "a7d80504-cf70-4d3c-ae4d-49fe0971309a"
+version = "0.1.0"
+
 [[PooledArrays]]
 deps = ["DataAPI"]
 git-tree-sha1 = "b1333d4eced1826e15adbdf01a4ecaccca9d353c"

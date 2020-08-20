@@ -9,6 +9,8 @@ using HTTP
 using JSON
 using Dates
 using Logging
+using Reexport
+@reexport using PookTradeBase
 
 # load my code -
 include("./base/Types.jl")
@@ -18,6 +20,7 @@ include("./base/Checks.jl")
 include("./base/Log.jl")
 include("./base/Handlers.jl")
 include("./base/Filesystem.jl")
+include("./base/Datastore.jl")
 
 # stock time series -
 include("./sts/STSDaily.jl")

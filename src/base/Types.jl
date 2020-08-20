@@ -1,11 +1,3 @@
-struct PSResult{T}
-    value::T
-end
-
-struct PSError <: Exception
-    message::String
-end
-
 struct PSUserModel
 
     # data for user -
@@ -15,5 +7,17 @@ struct PSUserModel
     # constructor -
     function PSUserModel(api_email::String, api_key::String)
         new(api_email,api_key)
+    end
+end
+
+struct PSDataStoreDownloadParameters
+
+    # data -
+    assetTickerSymbol::String
+    dataType::Symbol
+    outputsize::Symbol
+    call::Function
+
+    function PSDataStoreDownloadParameters(ticker::String,dataType::Symbol,output::Symbol,call::Function)
     end
 end
