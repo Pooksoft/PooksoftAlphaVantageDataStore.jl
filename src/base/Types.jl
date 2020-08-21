@@ -13,11 +13,12 @@ end
 struct PSDataStoreDownloadParameters
 
     # data -
-    assetTickerSymbol::String
+    ticker::String
     dataType::Symbol
     outputsize::Symbol
-    call::Function
+    apicall::Function
 
-    function PSDataStoreDownloadParameters(ticker::String,dataType::Symbol,output::Symbol,call::Function)
+    function PSDataStoreDownloadParameters(apicall::Function, ticker::String; dataType::Symbol=:cvs, output::Symbol = :compact)
+        this = new(ticker,dataType,output,apicall)
     end
 end

@@ -28,17 +28,22 @@ function build_datastore_download_parameter_object(callFunction::Function, ticke
 
     # TODO: how do we check is we have a specific function?
 
+    # get stuff -
+    parameter_object = PSDataStoreDownloadParameters(callFunction, tickerSymbol; dataType=datatype, output=output)
+
+    # return -
+    return PSResult(parameter_object)
 end
 
 function download(userModel::PSUserModel, parameters::PSDataStoreDownloadParameters; 
     logger::Union{Nothing,AbstractLogger} = nothing)::PSResult
 
     # get stuff from the parameters -
-    tickerSymbol = parameters.assetTickerSymbol
+    tickerSymbol = parameters.ticker
     outputsize = parameters.outputsize
     datatype = parameters.dataType
-    callFunction = parameters.call
+    apicall = parameters.apicall
 
     # make the call -
-    return callFunction(userModel,tickerSymbol; data_type = datatype, outputsize = outputsize, logger = logger)
+    return apicall(userModel,tickerSymbol; data_type = datatype, outputsize = outputsize, logger = logger)
 end
