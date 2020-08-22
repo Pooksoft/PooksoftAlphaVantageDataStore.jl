@@ -1,25 +1,25 @@
 """
     execute_sts_daily_api_call()
 """
-function execute_sts_daily_api_call(user_model::PSUserModel, stock_symbol::String; 
+function execute_sts_daily_api_call(user_model::PSUserModel, ticker_symbol::String; 
     data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing,AbstractLogger} = nothing)::(Union{PSResult{T}, Nothing} where T<:Any)
 
     # some error checks -
     # is user_model valid?
     check_result = check_user_model(user_model)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
     # do we have the API key?
     check_result = check_missing_api_key(user_model)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
-    # do we have a stock_symbol -
-    check_result = check_missing_symbol(stock_symbol)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    # do we have a ticker_symbol -
+    check_result = check_missing_symbol(ticker_symbol)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
@@ -27,7 +27,7 @@ function execute_sts_daily_api_call(user_model::PSUserModel, stock_symbol::Strin
     api_key = user_model.alphavantage_api_key
 
     # use the alpha_vantage_api to download the data -
-    url = "$(alphavantage_api_url_string)?function=TIME_SERIES_DAILY&symbol=$(stock_symbol)&apikey=$(api_key)&datatype=$(string(data_type))&outputsize=$(string(outputsize))"
+    url = "$(alphavantage_api_url_string)?function=TIME_SERIES_DAILY&symbol=$(ticker_symbol)&apikey=$(api_key)&datatype=$(string(data_type))&outputsize=$(string(outputsize))"
     api_call_result = http_get_call_with_url(url)
     if (typeof(api_call_result.value) == PSError)
         return api_call_result
@@ -37,7 +37,7 @@ function execute_sts_daily_api_call(user_model::PSUserModel, stock_symbol::Strin
     api_call_raw_data = api_call_result.value
 
     # make a call to log -
-    if logger != nothing
+    if logger !== nothing
         log_api_call(logger, user_model,url)
     end
 
@@ -64,25 +64,25 @@ end
 """
     execute_sts_adjusted_daily_api_call()
 """
-function execute_sts_adjusted_daily_api_call(user_model::PSUserModel, stock_symbol::String; 
+function execute_sts_adjusted_daily_api_call(user_model::PSUserModel, ticker_symbol::String; 
     data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing,AbstractLogger} = nothing)::(Union{PSResult{T}, Nothing} where T<:Any)
     
     # some error checks -
     # is user_models valid?
     check_result = check_user_model(user_model)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (isnothing(check_result) == false && typeof(check_result.value) == PSError)
         return check_result
     end
 
     # do we have the API key?
     check_result = check_missing_api_key(user_model)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (isnothing(check_result) == false && typeof(check_result.value) == PSError)
         return check_result
     end
 
-    # do we have a stock_symbol -
-    check_result = check_missing_symbol(stock_symbol)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    # do we have a ticker_symbol -
+    check_result = check_missing_symbol(ticker_symbol)
+    if (isnothing(check_result) == false && typeof(check_result.value) == PSError)
         return check_result
     end
 
@@ -90,22 +90,22 @@ function execute_sts_adjusted_daily_api_call(user_model::PSUserModel, stock_symb
     api_key = user_model.alphavantage_api_key
 
     # call to alpha_vantage_api to get data
-    url = "$(alphavantage_api_url_string)?function=TIME_SERIES_DAILY_ADJUSTED&symbol=$(stock_symbol)&apikey=$(api_key)&datatype=$(string(data_type))&outputsize=$(string(outputsize))"
+    url = "$(alphavantage_api_url_string)?function=TIME_SERIES_DAILY_ADJUSTED&symbol=$(ticker_symbol)&apikey=$(api_key)&datatype=$(string(data_type))&outputsize=$(string(outputsize))"
     api_call_result = http_get_call_with_url(url)
     if (typeof(api_call_result.value) == PSError)
         return api_call_result
     end
 
-    #check that result value is a string
-    #this is also new but doesn't change between time periods
-    if (typeof(api_call_result.value) isa String == false)
-        println("Call result is not valid type")#error from not correct data output
+    # check that result value is a string
+    # this is also new but doesn't change between time periods
+    if (isa(api_call_result.value,String) == false)
+        println("Call result is not valid type") # error from not correct data output
     else
         api_call_raw_data = api_call_result.value
     end
 
     #call to logger
-    if logger != nothing
+    if isnothing(logger) == false
         log_api_call(logger, user_model, url)
     end
 

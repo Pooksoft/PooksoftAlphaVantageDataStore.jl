@@ -10,7 +10,7 @@ struct PSUserModel
     end
 end
 
-struct PSDataStoreDownloadParameters
+struct PSDataStoreAPICallModel
 
     # data -
     ticker::String
@@ -18,7 +18,7 @@ struct PSDataStoreDownloadParameters
     outputsize::Symbol
     apicall::Function
 
-    function PSDataStoreDownloadParameters(apicall::Function, ticker::String; dataType::Symbol=:cvs, output::Symbol = :compact)
+    function PSDataStoreAPICallModel(apicall::Function, ticker::String; dataType::Symbol=:cvs, output::Symbol = :compact)
         this = new(ticker,dataType,output,apicall)
     end
 end

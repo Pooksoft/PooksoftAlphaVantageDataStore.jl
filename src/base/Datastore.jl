@@ -1,4 +1,4 @@
-function build_datastore_download_parameter_object(callFunction::Function, tickerSymbol::String; 
+function build_datastore_apicall_model(callFunction::Function, tickerSymbol::String; 
     output::Symbol = :compact, datatype::Symbol = :json)::PSResult
 
     # TODO: Checks -
@@ -29,21 +29,21 @@ function build_datastore_download_parameter_object(callFunction::Function, ticke
     # TODO: how do we check is we have a specific function?
 
     # get stuff -
-    parameter_object = PSDataStoreDownloadParameters(callFunction, tickerSymbol; dataType=datatype, output=output)
+    parameter_object = PSDataStoreAPICallModel(callFunction, tickerSymbol; dataType=datatype, output=output)
 
     # return -
     return PSResult(parameter_object)
 end
 
-function download(userModel::PSUserModel, parameters::PSDataStoreDownloadParameters; 
+function execute_api_call(usermodel::PSUserModel, apimodel::PSDataStoreAPICallModel; 
     logger::Union{Nothing,AbstractLogger} = nothing)::PSResult
 
     # get stuff from the parameters -
-    tickerSymbol = parameters.ticker
-    outputsize = parameters.outputsize
-    datatype = parameters.dataType
-    apicall = parameters.apicall
+    tickerSymbol = apimodel.ticker
+    outputsize = apimodel.outputsize
+    datatype = apimodel.dataType
+    apicall = apimodel.apicall
 
     # make the call -
-    return apicall(userModel,tickerSymbol; data_type = datatype, outputsize = outputsize, logger = logger)
+    return apicall(usermodel,tickerSymbol; data_type = datatype, outputsize = outputsize, logger = logger)
 end

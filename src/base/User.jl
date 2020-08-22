@@ -11,7 +11,7 @@ end
 """
     build_api_user_model(path)
 
-Returns either a Result{PSError} if something went wrong, or a Result{PSUserModel} object holding the user email and AlphaVantage API key.
+Returns either a PSResult{PSError} if something went wrong, or a PSResult{PSUserModel} object holding the user email and AlphaVantage API key.
 The PSError and PSUserModel can be accessed using the `value` field on the Result return wrapper
 """
 function build_api_user_model(path_to_configuration_file::String)::(Union{PSResult{T}, Nothing} where T<:Any)

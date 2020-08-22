@@ -17,8 +17,8 @@ export execute_sts_search_api_call
 
 # high-level functions -
 export build_api_user_model
-export build_datastore_download_parameter_object
-export download
+export build_datastore_apicall_model
+export execute_api_call
 
 # read/write -
 export write_data_to_filestore
@@ -26,6 +26,6 @@ export read_data_from_filestore
 
 # export types -
 export PSUserModel
-export PSDataStoreDownloadParameters
+export PSDataStoreAPICallModel
 
 end # module

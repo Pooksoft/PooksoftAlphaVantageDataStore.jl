@@ -3,7 +3,7 @@ using Test
 using JSON
 using DataFrames
 
-# -- User creation tests ------------------------------------------------------- #
+# -- User creation/low level download tests --------------------------------------------- #
 function build_api_user_model_test()
 
     # initialize -
@@ -30,7 +30,8 @@ function build_api_user_model_test()
     return false
 end
 
-function download_daily_appl_sts_test()
+
+function download_daily_appl_sts_test_low_level()
 
     # initialize -
     my_current_dir = pwd()   # where am I?
@@ -60,7 +61,7 @@ function download_daily_appl_sts_test()
     return false
 end
 
-function download_daily_adjusted_appl_sts_test()
+function download_daily_adjusted_appl_sts_test_low_level()
 
     # initialize -
     my_current_dir = pwd()   # where am I?
@@ -90,8 +91,7 @@ function download_daily_adjusted_appl_sts_test()
     return false
 end
 
-
-function download_weekly_adjusted_appl_sts_test()
+function download_weekly_adjusted_appl_sts_test_low_level()
 
     # initialize -
     my_current_dir = pwd()   # where am I?
@@ -121,7 +121,7 @@ function download_weekly_adjusted_appl_sts_test()
     return false
 end
 
-function download_weekly_appl_sts_test()
+function download_weekly_appl_sts_test_low_level()
 
     # initialize -
     my_current_dir = pwd()   # where am I?
@@ -151,7 +151,7 @@ function download_weekly_appl_sts_test()
     return false
 end
 
-function download_monthly_adjusted_appl_sts_test()
+function download_monthly_adjusted_appl_sts_test_low_level()
 
     # initialize -
     my_current_dir = pwd()   # where am I?
@@ -181,7 +181,7 @@ function download_monthly_adjusted_appl_sts_test()
     return false
 end
 
-function download_monthly_appl_sts_test()
+function download_monthly_appl_sts_test_low_level()
 
     # initialize -
     my_current_dir = pwd()   # where am I?
@@ -210,16 +210,58 @@ function download_monthly_appl_sts_test()
     # return -
     return false
 end
-#------------------------------------------------------------------------------- #
+#---------------------------------------------------------------------------------------- #
+
+# -- User creation/high level download tests -------------------------------------------- #
+
+function download_daily_appl_sts_test_high_level()
+
+    # initialize -
+    my_current_dir = pwd()   # where am I?
+    path_to_config_file = my_current_dir*"/configuration/Configuration.json"
+
+    # build the api user model -
+    user_model_result = build_api_user_model(path_to_config_file)
+    if (typeof(user_model_result.value) == PSError)
+        return false
+    end
+
+    # get the user model, we'll need this to make an API call -
+    user_model = user_model_result.value
+
+    # setup the API call -
+    stock_symbol = "aapl"
+    data_type = :json
+    outputsize = :compact
+    call = execute_sts_adjusted_daily_api_call
+    apicall_model = build_datastore_apicall_model(call,stock_symbol; output=outputsize, datatype=data_type)
+    if (isa(apicall_model.value, PSDataStoreAPICallModel) == false)
+        return false
+    end
+
+    # make the apicall -
+    api_call_result = execute_api_call(user_model, apicall_model.value)
+
+    # check -
+    if (isa(api_call_result.value,DataFrame) == true)
+        return true
+    end
+
+    # return -
+    return false
+end 
+#---------------------------------------------------------------------------------------- # 
 
 @testset "user_test_set" begin
-    @test build_api_user_model_test() == true
-    @test download_daily_appl_sts_test() == true
-    @test download_daily_adjusted_appl_sts_test() == true
-    @test download_weekly_appl_sts_test() == true
-    @test download_weekly_adjusted_appl_sts_test() == true
-    @test download_monthly_appl_sts_test() == true
+    # @test build_api_user_model_test_low_level() == true
+    # @test download_daily_appl_sts_test_low_level() == true
+    # @test download_daily_adjusted_appl_sts_test_low_level() == true
+    # @test download_weekly_appl_sts_test_low_level() == true
+    # @test download_weekly_adjusted_appl_sts_test_low_level() == true
+    # @test download_monthly_appl_sts_test_low_level() == true
     
-    sleep(60)   # wait 1 min -
-    @test download_monthly_adjusted_appl_sts_test() == true
+    # sleep(60)   # wait 1 min -
+    # @test download_monthly_adjusted_appl_sts_test_low_level() == true
+    @test download_daily_appl_sts_test_high_level() == true
 end
+
