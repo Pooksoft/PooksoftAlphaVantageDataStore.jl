@@ -7,16 +7,20 @@
 To install this package, open the [Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/), and start the package mode by pressing `]`.
 While in package mode, to install ``PooksoftAlphaVantageDataStore.jl``, issue the command:
 
-    (@v1.4) pkg> add https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl.git
+    (@v1.5) pkg> add https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl.git
 
 To use ``PooksoftAlphaVantageDataStore.jl`` in your project issue the command:
 
     julia> using PooksoftAlphaVantageDataStore
 
 ### Utility functions
-* [build_api_user_model](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/User.jl) | Function to build a user model object which requires an [AlphaVantage API key](https://www.alphavantage.co/support/#api-key)
+The utility functions construct two important composite data types, [PSUserModel](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Types.jl) which encapsulates information about your [AlphaVantage](https://www.alphavantage.co) account and [PSDataStoreAPICallModel](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Types.jl) which can be used along with the high-level interface to make [AlphaVantage](https://www.alphavantage.co) application programming interface (API) calls. 
 
-### Stock Time Series (STS) functions
+Utility functions:
+* [build_api_user_model](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/User.jl) | Function to build a user model object which requires an [AlphaVantage API key](https://www.alphavantage.co/support/#api-key)
+* [build_datastore_apicall_model](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Datastore.jl) | Utility function to build an api call model. This function returns a [PSDataStoreAPICallModel](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Types.jl) object which is required for the high-level api call interface.  
+
+### Stock Time Series (STS) functions (low-level interface)
 STS functions allow the user to download daily, weekly or monthly stock price data (or adjusted data) with a frequency depending upon your [AlphaVantage](https://www.alphavantage.co/support/#support) account privileges. These functions take the form:
 
     execute_sts_{*}_api_call
@@ -29,3 +33,10 @@ where `{*}` denotes the time frame for the data.
 * [execute_sts_adjusted_weekly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSWeekly.jl) | Download adjusted weekly stock price information
 * [execute_sts_monthly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSMonthly.jl) | Download monthly stock price information  
 * [execute_sts_adjusted_monthly_api_call](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/sts/STSMonthly.jl) | Download adjusted monthly stock price information
+
+### Stock Time Series (STS) functions (high-level interface)
+There is also a high-level interface that calls the low-level functions. The high-level interface has the convenience function:
+
+    execute_api_call
+
+which takes a [PSUserModel](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Types.jl) and a [PSDataStoreAPICallModel](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Types.jl) object, along with an optional [logger](https://github.com/kmsquire/Logging.jl) instance. Use the help system at the julia prompt for additional information on the ``execute_api_call`` function. 
