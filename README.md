@@ -4,7 +4,7 @@
 ``PooksoftAlphaVantageDataStore.jl`` is an application programming interface (API) for [AlphaVantage](https://www.alphavantage.co), a leading provider of realtime and historical stock, forex (FX) data, and digital/crypto currency data feeds written in the [Julia](https://julialang.org) programming language.
 
 ### Installation and Requirements
-To install this package, open the [Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/), and start the package mode by pressing `]`.
+``PooksoftAlphaVantageDataStore.jl`` can be installed, updated, or removed using the [Julia package management system](https://docs.julialang.org/en/v1/stdlib/Pkg/). To access the package management interface, open the [Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/), and start the package mode by pressing `]`.
 While in package mode, to install ``PooksoftAlphaVantageDataStore.jl``, issue the command:
 
     (@v1.5) pkg> add https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl.git
@@ -18,7 +18,7 @@ The utility functions construct two important composite data types, [PSUserModel
 
 Utility functions:
 * [build_api_user_model](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/User.jl) | Function to build a user model object which requires an [AlphaVantage API key](https://www.alphavantage.co/support/#api-key)
-* [build_datastore_apicall_model](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Datastore.jl) | Utility function to build an api call model. This function returns a [PSDataStoreAPICallModel](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Types.jl) object which is required for the high-level api call interface.  
+* [build_datastore_apicall_model](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Datastore.jl) | Utility function to build an api call model which is required for the high-level api call interface. This function returns a [PSDataStoreAPICallModel](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Types.jl) object wrapped in a ``PSResult`` type; the [PSDataStoreAPICallModel](https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl/blob/master/src/base/Types.jl) object can be accessed from the ``value`` field of the ``PSResult`` type. 
 
 ### Stock Time Series (STS) functions (low-level interface)
 STS functions allow the user to download daily, weekly or monthly stock price data (or adjusted data) with a frequency depending upon your [AlphaVantage](https://www.alphavantage.co/support/#support) account privileges. These functions take the form:
