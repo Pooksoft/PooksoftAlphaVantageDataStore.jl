@@ -256,9 +256,9 @@ end
     # @test build_api_user_model_test_low_level() == true
     # @test download_daily_appl_sts_test_low_level() == true
     # @test download_daily_adjusted_appl_sts_test_low_level() == true
-    # @test download_weekly_appl_sts_test_low_level() == true
-    # @test download_weekly_adjusted_appl_sts_test_low_level() == true
-    # @test download_monthly_appl_sts_test_low_level() == true
+    @test download_weekly_appl_sts_test_low_level() == true
+    @test download_weekly_adjusted_appl_sts_test_low_level() == true
+    @test download_monthly_appl_sts_test_low_level() == true
     
     # sleep(60)   # wait 1 min -
     # @test download_monthly_adjusted_appl_sts_test_low_level() == true
