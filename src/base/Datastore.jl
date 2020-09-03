@@ -35,6 +35,13 @@ function build_datastore_apicall_model(callFunction::Function, tickerSymbol::Str
     return PSResult(parameter_object)
 end
 
+"""
+    execute_api_call(user::PSUserModel, api::PSDataStoreAPICallModel; logger::Union{Nothing,AbstractLogger} = nothing)::PSResult
+
+High-level convenience function to execute an data store application programming interface call.
+
+# Arguments
+"""
 function execute_api_call(usermodel::PSUserModel, apimodel::PSDataStoreAPICallModel; 
     logger::Union{Nothing,AbstractLogger} = nothing)::PSResult
 
