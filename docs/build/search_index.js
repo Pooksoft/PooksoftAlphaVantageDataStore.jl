@@ -1,3 +1,3 @@
 var documenterSearchIndex = {"docs":
-[]
+[{"location":"utility/#Utility-functions","page":"Utility functions","title":"Utility functions","text":"","category":"section"},{"location":"stsfunctions/#Stock-Time-Series-(STS)-functions","page":"Stock Time Series (STS) functions","title":"Stock Time Series (STS) functions","text":"","category":"section"},{"location":"execute_sts_daily_api_call/#Time-Series-Daily","page":"Time Series Daily","title":"Time Series Daily","text":"","category":"section"},{"location":"execute_sts_weekly_api_call/#Time-Series-Weekly","page":"Time Series Weekly","title":"Time Series Weekly","text":"","category":"section"},{"location":"execute_sts_adjusted_daily_api_call/#Adjusted-Time-Series-Daily","page":"Adjusted Time Series Daily","title":"Adjusted Time Series Daily","text":"","category":"section"}]
 }

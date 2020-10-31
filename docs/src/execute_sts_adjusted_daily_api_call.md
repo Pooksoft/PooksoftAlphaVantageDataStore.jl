@@ -1,0 +1,1 @@
+# Adjusted Time Series Daily
