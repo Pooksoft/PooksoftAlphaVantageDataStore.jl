@@ -1,5 +1,7 @@
 """
-execute_sts_monthly_api_call()
+    execute_sts_monthly_api_call
+
+Stuff will go here. Awesome stuff, the most beautiful stuff ever.
 """
 function execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::String; 
     data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing,AbstractLogger} = nothing)::(Union{PSResult{T}, Nothing} where T<:Any)
@@ -13,13 +15,13 @@ function execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::Str
 
     # do we have the API key?
     check_result = check_missing_api_key(user_model)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
     # do we have a stock_symbol -
     check_result = check_missing_symbol(stock_symbol)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
@@ -64,7 +66,9 @@ function execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::Str
 end
 
 """
-    execute_sts_adjsuted_monthly_api_call()
+    execute_sts_adjusted_monthly_api_call
+
+Stuff will go here. Awesome stuff, the most beautiful stuff ever.
 """
 function execute_sts_adjusted_monthly_api_call(user_model::PSUserModel, stock_symbol::String; 
     data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing,AbstractLogger} = nothing)::(Union{PSResult{T}, Nothing} where T<:Any)

@@ -1,1 +1,0 @@
-# Stock Time Series (STS) functions
