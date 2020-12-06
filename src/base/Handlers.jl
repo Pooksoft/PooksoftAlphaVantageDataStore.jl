@@ -24,7 +24,7 @@ function process_raw_csv_api_data(api_call_raw_data::String)::(Union{PSResult{T}
     end
 
     # create a data table from the CSV data -
-    tmp_data_table = CSV.read(IOBuffer(api_call_raw_data))
+    tmp_data_table = CSV.read(IOBuffer(api_call_raw_data), DataFrame)
 
     # sort the table according to the timestamps -
     idx_sort = sortperm(tmp_data_table[:,1])
