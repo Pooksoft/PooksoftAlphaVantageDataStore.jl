@@ -31,4 +31,4 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          julia --color=yes --project -e 'using Pkg; Pkg.build(; verbose = true); Pkg.test(coverage=true)'
+          julia --color=yes --project -e 'using Pkg; Pkg.instantiate(); Pkg.build(; verbose = true); Pkg.test(coverage=true)'
