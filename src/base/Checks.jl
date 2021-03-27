@@ -37,7 +37,7 @@ function check_missing_api_key(user_model::PSUserModel)::(Union{T, Nothing} wher
         return PSResult{PSError}(PSError(error_message))
     end
 
-    #
+    # ok -
     return nothing
 end
 

@@ -15,8 +15,6 @@ using Reexport
 @reexport using PooksoftBase
 
 # need to update this syntax -
-
-
 # load my code -
 include("./base/Types.jl")
 include("./base/Network.jl")
@@ -33,3 +31,6 @@ include("./sts/STSWeekly.jl")
 include("./sts/STSMonthly.jl")
 include("./sts/Quote.jl")
 include("./sts/Search.jl")
+
+# technical indicators -
+include("./ti/SMA.jl")

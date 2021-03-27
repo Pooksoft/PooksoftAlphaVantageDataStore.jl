@@ -1,4 +1,4 @@
-function http_get_call_with_url(url::String)::(Union{PSResult{T}, Nothing} where T<:Any)
+function http_get_call_with_url(url::String)::PSResult
 
     # check: is the URL string empty?
     # check: is it a legit URL string?
