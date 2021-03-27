@@ -1,3 +1,9 @@
+"""
+    execute_simple_moving_average_api_call(requestDictionary::Dict{String,Any}; 
+        logger::Union{Nothing,AbstractLogger} = nothing) -> PSResult
+
+Something magical will go here. It will be awesome. The best ever. amazing
+"""
 function execute_simple_moving_average_api_call(requestDictionary::Dict{String,Any}; 
     logger::Union{Nothing,AbstractLogger} = nothing)::PSResult
 
@@ -21,8 +27,6 @@ function execute_simple_moving_average_api_call(requestDictionary::Dict{String,A
             value = requestDictionary[key]
             api_call_url_string*="&$(key)=$(value)"
         end
-
-        @show api_call_url_string
 
         # make the API call -
         api_call_result = http_get_call_with_url(api_call_url_string)

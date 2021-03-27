@@ -21,13 +21,10 @@ required_api_keys = [
 requestDictionary = Dict{String,Any}()
 requestDictionary["apikey"] = user_model.alphavantage_api_key
 requestDictionary["symbol"] = "ALLY"
-requestDictionary["function"] = "SMA"
+requestDictionary["function"] = "EMA"
 requestDictionary["interval"] = "daily"
 requestDictionary["time_period"] = "14"
 requestDictionary["series_type"] = "close"
 requestDictionary["datatype"] = "json"
-api_call_result = execute_simple_moving_average_api_call(requestDictionary)
+api_call_result = execute_exponential_moving_average_api_call(requestDictionary)
 df = checkresult(api_call_result)
-
-
-

@@ -34,3 +34,4 @@ include("./sts/Search.jl")
 
 # technical indicators -
 include("./ti/SMA.jl")
+include("./ti/EMA.jl")
