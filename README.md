@@ -1,5 +1,6 @@
 ![CI](https://github.com/Pooksoft/PooksoftOptionsKit.jl/workflows/CI/badge.svg)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://pooksoft.github.io/PooksoftAlphaVantageDataStore.jl/dev/)
+![GitHub](https://img.shields.io/github/license/pooksoft/PooksoftAlphaVantageDataStore.jl)
 
 ## Introduction
 ``PooksoftAlphaVantageDataStore.jl`` is an application programming interface (API) for [AlphaVantage](https://www.alphavantage.co), a leading provider of realtime and historical stock, forex (FX) data, and digital/crypto currency data feeds written in the [Julia](https://julialang.org) programming language.
