@@ -1,1 +1,2 @@
 # Introduction
+This package encodes a set of [Julia](https://julialang.org) functions to download data from the [AlphaVantage](https://www.alphavantage.co) financial data application programming interface (API). This package assumes you have login credentials for the [AlphaVantage](https://www.alphavantage.co) API.
