@@ -1,5 +1,6 @@
 """
-    execute_sts_weekly_api_call
+    execute_sts_weekly_api_call(user_model::PSUserModel, stock_symbol::String; 
+        data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing, AbstractLogger} = nothing) -> (Union{PSResult{T}, Nothing} where T<:Any)
 
 Stuff will go here. Awesome stuff, the most beautiful stuff ever.
 """
@@ -9,19 +10,19 @@ function execute_sts_weekly_api_call(user_model::PSUserModel, stock_symbol::Stri
     # same error checks as daily api call
     # is user_model valid?
     check_result = check_user_model(user_model)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
     # do we have the API key?
     check_result = check_missing_api_key(user_model)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
     # do we have a stock_symbol -
     check_result = check_missing_symbol(stock_symbol)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
@@ -45,7 +46,7 @@ function execute_sts_weekly_api_call(user_model::PSUserModel, stock_symbol::Stri
     end
 
     #call to logger
-    if logger != nothing
+    if logger !== nothing
         log_api_call(logger, user_model, url)
     end
     if (data_type == :json)
@@ -64,7 +65,8 @@ function execute_sts_weekly_api_call(user_model::PSUserModel, stock_symbol::Stri
 end
 
 """
-    execute_sts_adjusted_weekly_api_call
+    execute_sts_adjusted_weekly_api_call(user_model::PSUserModel, stock_symbol::String; 
+        data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing, AbstractLogger} = nothing) -> (Union{PSResult{T}, Nothing} where T<:Any)
 
 Stuff will go here. Awesome stuff, the most beautiful stuff ever.
 """

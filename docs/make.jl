@@ -9,7 +9,7 @@ makedocs(sitename="PooksoftAlphaVantageDataStore.jl",
             "utility.md"
         ],
 
-        "Stock Time Series (STS) functions" => [
+        "Stock Time Series (STS)" => [
             "execute_sts_daily_api_call.md",
             "execute_sts_weekly_api_call.md",
             "execute_sts_adjusted_weekly_api_call.md",

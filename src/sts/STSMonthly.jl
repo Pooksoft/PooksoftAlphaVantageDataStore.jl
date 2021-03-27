@@ -1,5 +1,6 @@
 """
-    execute_sts_monthly_api_call
+    execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::String; 
+        data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing,AbstractLogger} = nothing) -> (Union{PSResult{T}, Nothing} where T<:Any)
 
 Stuff will go here. Awesome stuff, the most beautiful stuff ever.
 """
@@ -9,7 +10,7 @@ function execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::Str
     # same error checks as daily api call
     # is user_model valid?
     check_result = check_user_model(user_model)
-    if (check_result != nothing && typeof(check_result.value) == PSError)
+    if (check_result !== nothing && typeof(check_result.value) == PSError)
         return check_result
     end
 
@@ -45,7 +46,7 @@ function execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::Str
     end
 
     #call to logger
-    if logger != nothing
+    if logger !== nothing
         log_api_call(logger, user_model, url)
     end
     
@@ -66,7 +67,8 @@ function execute_sts_monthly_api_call(user_model::PSUserModel, stock_symbol::Str
 end
 
 """
-    execute_sts_adjusted_monthly_api_call
+    execute_sts_adjusted_monthly_api_call(user_model::PSUserModel, stock_symbol::String; 
+        data_type::Symbol = :json, outputsize::Symbol = :compact, logger::Union{Nothing,AbstractLogger} = nothing) -> (Union{PSResult{T}, Nothing} where T<:Any)
 
 Stuff will go here. Awesome stuff, the most beautiful stuff ever.
 """
