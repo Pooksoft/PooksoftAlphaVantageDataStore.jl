@@ -25,6 +25,6 @@ makedocs(sitename="PooksoftAlphaVantageDataStore.jl",
 # for more information.
 deploydocs(
     repo = "github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl.git",
-    devbranch = "main",
+    devbranch = "master",
     devurl = "dev",
 )
