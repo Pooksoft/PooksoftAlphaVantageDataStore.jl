@@ -1,6 +1,8 @@
 # define constants here -
 const alphavantage_api_url_string = "https://www.alphavantage.co/query"
 const path_to_package = dirname(pathof(@__MODULE__))
+const _PATH_TO_BASE = joinpath(path_to_package,"base")
+const _PATH_TO_STS = joinpath(path_to_package, "base") 
 
 # load offical packages here -
 using DataFrames
@@ -13,6 +15,8 @@ using Reexport
 @reexport using PooksoftBase
 
 # need to update this syntax -
+
+
 # load my code -
 include("./base/Types.jl")
 include("./base/Network.jl")
