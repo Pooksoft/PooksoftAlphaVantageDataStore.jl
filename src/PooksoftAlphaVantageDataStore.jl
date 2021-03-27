@@ -16,6 +16,7 @@ export execute_sts_quote_api_call
 export execute_sts_search_api_call
 export execute_simple_moving_average_api_call
 export execute_exponential_moving_average_api_call
+export execute_relative_strength_index_api_call
 
 # high-level functions -
 export build_api_user_model

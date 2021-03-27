@@ -556,3 +556,59 @@ function process_raw_json_data_ti_ema_data(api_call_raw_data::String, data_serie
     # return the data back to the caller -
     return PSResult{DataFrame}(data_frame)
 end
+
+function process_raw_json_data_ti_rsi_data(api_call_raw_data::String, data_series_key::String)::PSResult
+
+    # if we get here, we have valid JSON. Build dictionary -
+    api_data_dictionary = JSON.parse(api_call_raw_data)
+
+    # grab the time series data -
+    time_series_key = data_series_key
+    if (haskey(api_data_dictionary, time_series_key) == false)
+
+        # throw an error -
+        error_message = "Error: Missing the series key = $(time_series_key)"
+
+        # throw -
+        return PSError(error_message)
+    end
+
+    # initialize -
+    data_key_label_array = ["RSI"]
+    number_of_fields = length(data_key_label_array)
+    timestamp_array = Dates.Date[]
+    rsi_value_array = Float64[]
+
+    # ok, get the data for each time point -
+    time_series_dictionary = api_data_dictionary[time_series_key]
+    time_series_key_array = collect(keys(time_series_dictionary))
+    for timestamp_value in time_series_key_array
+
+        # get the local_dictionary -
+        local_dictionary = time_series_dictionary[timestamp_value]
+
+        # cache -
+        push!(timestamp_array, Dates.Date(timestamp_value,"yyyy-mm-dd"))
+
+        # add the price data -
+        for key_index = 1:number_of_fields
+
+            # grab key -
+            local_key = data_key_label_array[key_index]
+            value = local_dictionary[local_key]
+            
+            if (key_index == 1)
+                push!(rsi_value_array, parse(Float64,value))
+            end
+        end
+    end
+
+    # we need to sort the timestamps, to make them in reverse order -
+    idx_sort = sortperm(timestamp_array)
+
+    # build the data frame -
+    data_frame = DataFrame(timestamp=timestamp_array[idx_sort], rsi=rsi_value_array[idx_sort])
+
+    # return the data back to the caller -
+    return PSResult{DataFrame}(data_frame)
+end
