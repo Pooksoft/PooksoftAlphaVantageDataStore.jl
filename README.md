@@ -1,4 +1,5 @@
 ![CI](https://github.com/Pooksoft/PooksoftOptionsKit.jl/workflows/CI/badge.svg)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://pooksoft.github.io/PooksoftAlphaVantageDataStore.jl/dev/)
 
 ## Introduction
 ``PooksoftAlphaVantageDataStore.jl`` is an application programming interface (API) for [AlphaVantage](https://www.alphavantage.co), a leading provider of realtime and historical stock, forex (FX) data, and digital/crypto currency data feeds written in the [Julia](https://julialang.org) programming language.
@@ -7,7 +8,7 @@
 ``PooksoftAlphaVantageDataStore.jl`` can be installed, updated, or removed using the [Julia package management system](https://docs.julialang.org/en/v1/stdlib/Pkg/). To access the package management interface, open the [Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/), and start the package mode by pressing `]`.
 While in package mode, to install ``PooksoftAlphaVantageDataStore.jl``, issue the command:
 
-    (@v1.5) pkg> add https://github.com/Pooksoft/PooksoftAlphaVantageDataStore.jl.git
+    (@v1.6) pkg> add PooksoftAlphaVantageDataStore
 
 To use ``PooksoftAlphaVantageDataStore.jl`` in your project issue the command:
 
