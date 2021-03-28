@@ -1,7 +1,7 @@
 using Documenter
 using PooksoftAlphaVantageDataStore
 
-makedocs(sitename="PooksoftAlphaVantageDataStore.jl",
+makedocs(sitename="Pooksoft",
     pages = [
         "index.md",
 
@@ -19,7 +19,8 @@ makedocs(sitename="PooksoftAlphaVantageDataStore.jl",
 
         "Technical Indicators (TI)" => [
             "execute_ti_simple_moving_average_api_call.md",
-            "execute_ti_exponential_moving_average_api_call.md"
+            "execute_ti_exponential_moving_average_api_call.md",
+            "execute_ti_rsi_api_call.md"
         ]
     ]
 )
