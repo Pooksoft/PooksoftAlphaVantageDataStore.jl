@@ -14,7 +14,9 @@ makedocs(sitename="Pooksoft",
             "execute_sts_weekly_api_call.md",
             "execute_sts_adjusted_weekly_api_call.md",
             "execute_sts_monthly_api_call.md",
-            "execute_sts_adjusted_monthly_api_call.md"
+            "execute_sts_adjusted_monthly_api_call.md",
+            "execute_sts_quote_api_call.md",
+            "execute_sts_search_api_call.md"
         ],
 
         "Technical Indicators (TI)" => [
