@@ -15,6 +15,11 @@ makedocs(sitename="PooksoftAlphaVantageDataStore.jl",
             "execute_sts_adjusted_weekly_api_call.md",
             "execute_sts_monthly_api_call.md",
             "execute_sts_adjusted_monthly_api_call.md"
+        ],
+
+        "Technical Indicators (TI)" => [
+            "execute_ti_simple_moving_average_api_call.md",
+            "execute_ti_exponential_moving_average_api_call.md"
         ]
     ]
 )
