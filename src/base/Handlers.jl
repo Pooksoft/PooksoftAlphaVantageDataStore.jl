@@ -558,7 +558,8 @@ function process_raw_json_data_ti_ema_data(api_call_raw_data::String, data_serie
     return PSResult{DataFrame}(data_frame)
 end
 
-function process_raw_json_data_ti_rsi_data(api_call_raw_data::String, data_series_key::String)::PSResult
+function process_raw_json_data_ti_rsi_data(api_call_raw_data::String, 
+    data_series_key_array::String)::PSResult
 
     # if we get here, we have valid JSON. Build dictionary -
     api_data_dictionary = JSON.parse(api_call_raw_data)
@@ -612,4 +613,37 @@ function process_raw_json_data_ti_rsi_data(api_call_raw_data::String, data_serie
 
     # return the data back to the caller -
     return PSResult{DataFrame}(data_frame)
+end
+
+function process_raw_json_fundamentals_earnings_data(api_call_raw_data::String)::PSResult
+
+    # if we get here, we have valid JSON. Build dictionary -
+    api_data_dictionary = JSON.parse(api_call_raw_data)
+    earnings_data_dictionary = Dict{String,Any}()
+
+    # ok, so there is a symbol key that comes back -
+    earnings_data_dictionary["symbol"] = api_data_dictionary["symbol"]
+
+    # grab: annualEarnings -
+    list_of_annual_earnings_dictionaries =  api_data_dictionary["annualEarnings"]
+    earnings_dataframe = DataFrame(fiscalDateEnding=Dates.Date[],reportedEPS=Float64[])
+    for earnings_dictionary in list_of_annual_earnings_dictionaries
+        
+        # grab -
+        timestamp_value = earnings_dictionary["fiscalDateEnding"]
+        eps_value = earnings_dictionary["reportedEPS"]
+
+        # convert -
+        converted_timestamp_value = Dates.Date(timestamp_value,"yyyy-mm-dd")
+        converted_eps_value = parse(Float64, eps_value)
+
+        # package into the df -
+        push!(df, (converted_timestamp_value, converted_eps_value))
+    end
+
+    # package -
+    earnings_data_dictionary["annualEarnings"] = earnings_dataframe
+
+    # return -
+    return PSResult(earnings_data_dictionary)
 end

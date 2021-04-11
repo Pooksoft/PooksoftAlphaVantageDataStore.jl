@@ -17,7 +17,7 @@ const _PATH_TO_BASE = joinpath(path_to_package,"base")
 const _PATH_TO_STS = joinpath(path_to_package, "sts")
 const _PATH_TO_TI = joinpath(path_to_package, "ti")
 const _PATH_TO_CRYPTO = joinpath(path_to_package, "crypto")
-const _PATH_TO_FUNDEMENTALS = joinpath(path_to_package, "fundementals")
+const _PATH_TO_FUNDAMENTALS = joinpath(path_to_package, "fundamentals")
 
 # load offical packages here -
 using DataFrames
@@ -48,3 +48,9 @@ my_ti_codes = [
     "SMA.jl", "EMA.jl", "RSI.jl"
 ]
 _include_my_codes(_PATH_TO_TI, my_ti_codes)
+
+# fundementals -
+my_fundamental_codes = [
+    "Overview.jl"
+]
+_include_my_codes(_PATH_TO_FUNDAMENTALS, my_fundamental_codes)
