@@ -1,6 +1,8 @@
 """
     execute_company_earnings_api_call(requestDictionary::Dict{String,Any}; 
         logger::Union{Nothing,AbstractLogger} = nothing) -> PSResult
+
+Awesome description will be here. The best ever.
 """
 function execute_company_earnings_api_call(requestDictionary::Dict{String,Any}; 
     logger::Union{Nothing,AbstractLogger} = nothing)::PSResult
@@ -32,5 +34,3 @@ function execute_company_earnings_api_call(requestDictionary::Dict{String,Any};
         return PSResult(error)
     end
 end
-
-

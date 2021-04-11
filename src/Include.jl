@@ -51,6 +51,6 @@ _include_my_codes(_PATH_TO_TI, my_ti_codes)
 
 # fundementals -
 my_fundamental_codes = [
-    "Overview.jl"
+    "Overview.jl", "Earnings.jl"
 ]
 _include_my_codes(_PATH_TO_FUNDAMENTALS, my_fundamental_codes)

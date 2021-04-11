@@ -621,12 +621,14 @@ function process_raw_json_fundamentals_earnings_data(api_call_raw_data::String):
     api_data_dictionary = JSON.parse(api_call_raw_data)
     earnings_data_dictionary = Dict{String,Any}()
 
+    @show api_data_dictionary
+
     # ok, so there is a symbol key that comes back -
     earnings_data_dictionary["symbol"] = api_data_dictionary["symbol"]
 
     # grab: annualEarnings -
     list_of_annual_earnings_dictionaries =  api_data_dictionary["annualEarnings"]
-    earnings_dataframe = DataFrame(fiscalDateEnding=Dates.Date[],reportedEPS=Float64[])
+    earnings_dataframe = DataFrame(fiscalDateEnding=Dates.Date[],reportedEPS=Union{Float64,Missing}[])
     for earnings_dictionary in list_of_annual_earnings_dictionaries
         
         # grab -
@@ -638,11 +640,59 @@ function process_raw_json_fundamentals_earnings_data(api_call_raw_data::String):
         converted_eps_value = parse(Float64, eps_value)
 
         # package into the df -
-        push!(df, (converted_timestamp_value, converted_eps_value))
+        push!(earnings_dataframe, (converted_timestamp_value, converted_eps_value))
+    end
+
+    # grab: quarterlyEarnings -
+    list_of_quaterly_earnings_dictionaries = api_data_dictionary["quarterlyEarnings"]
+    quarterly_dataframe = DataFrame(fiscalDateEnding=Dates.Date[],
+        reportedDate=Dates.Date[],
+        reportedEPS=Union{Float64,Missing}[],
+        estimatedEPS=Union{Float64,Missing}[],
+        surprise=Union{Float64,Missing}[],
+        surprisePercentage=Union{Float64,Missing}[])
+
+    for earnings_dictionary in list_of_quaterly_earnings_dictionaries
+        
+        # grab data from dictionary -
+        fiscalDateEnding = Dates.Date(earnings_dictionary["fiscalDateEnding"], "yyyy-mm-dd")
+        reportedDate = Dates.Date(earnings_dictionary["reportedDate"], "yyyy-mm-dd")
+
+        # check reported EPS -
+        reportedEPS_value = earnings_dictionary["reportedEPS"]
+        reportedEPS = missing
+        if (reportedEPS_value != "None")
+            reportedEPS = parse(Float64, reportedEPS_value)
+        end
+
+        # check estimated EPS -
+        estimatedEPS_value = earnings_dictionary["estimatedEPS"]
+        estimatedEPS = missing
+        if (estimatedEPS_value != "None")
+            estimatedEPS = parse(Float64, estimatedEPS_value)
+        end
+            
+        # check suprise -
+        surprise_value = earnings_dictionary["surprise"]
+        surprise = missing
+        if (surprise_value != "None")
+            surprise = parse(Float64, surprise_value)
+        end
+        
+        # check surprisePercentage -
+        surprisePercentage_value = earnings_dictionary["surprisePercentage"]
+        surprisePercentage = missing
+        if (surprisePercentage_value != "None")
+            surprisePercentage = parse(Float64, surprisePercentage_value)
+        end
+        
+        # package -
+        push!(quarterly_dataframe,(fiscalDateEnding, reportedDate, reportedEPS, estimatedEPS, surprise, surprisePercentage))
     end
 
     # package -
     earnings_data_dictionary["annualEarnings"] = earnings_dataframe
+    earnings_data_dictionary["quarterlyEarnings"] = quarterly_dataframe
 
     # return -
     return PSResult(earnings_data_dictionary)
