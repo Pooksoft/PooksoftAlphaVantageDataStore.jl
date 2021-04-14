@@ -33,7 +33,7 @@ using Reexport
 # load my base codes -
 my_base_codes = [
     "Types.jl", "Network.jl", "User.jl", "Checks.jl", 
-    "Log.jl", "Handlers.jl", "Filesystem.jl", "Datastore.jl"
+    "Log.jl", "Handlers.jl", "Filesystem.jl", "Datastore.jl", "General.jl"
 ];
 _include_my_codes(_PATH_TO_BASE, my_base_codes)
 
@@ -51,6 +51,6 @@ _include_my_codes(_PATH_TO_TI, my_ti_codes)
 
 # fundementals -
 my_fundamental_codes = [
-    "Overview.jl", "Earnings.jl"
+    "Overview.jl", "Earnings.jl", "Income.jl"
 ]
 _include_my_codes(_PATH_TO_FUNDAMENTALS, my_fundamental_codes)

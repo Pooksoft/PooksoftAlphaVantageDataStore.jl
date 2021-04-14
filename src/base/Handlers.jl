@@ -621,8 +621,6 @@ function process_raw_json_fundamentals_earnings_data(api_call_raw_data::String):
     api_data_dictionary = JSON.parse(api_call_raw_data)
     earnings_data_dictionary = Dict{String,Any}()
 
-    @show api_data_dictionary
-
     # ok, so there is a symbol key that comes back -
     earnings_data_dictionary["symbol"] = api_data_dictionary["symbol"]
 
@@ -696,4 +694,129 @@ function process_raw_json_fundamentals_earnings_data(api_call_raw_data::String):
 
     # return -
     return PSResult(earnings_data_dictionary)
+end
+
+function process_raw_json_fundamentals_income_statement_data(api_call_raw_data::String)::PSResult
+
+    # if we get here, we have valid JSON. Build dictionary -
+    api_data_dictionary = JSON.parse(api_call_raw_data)
+    income_statement_data_dictionary = Dict{String,Any}()
+
+    # ok, so there is a symbol key that comes back -
+    income_statement_data_dictionary["symbol"] = api_data_dictionary["symbol"]
+
+    # process the annualReports -
+    # what keys are we looking for in the annual report dictionary -
+    annual_report_key_array = [
+        "fiscalDateEnding"                  ;
+        "reportedCurrency"                  ;
+        "grossProfit"                       ; 
+        "totalRevenue"                      ; 
+        "costOfRevenue"                     ; 
+        "costofGoodsAndServicesSold"        ; 
+        "operatingIncome"                   ; 
+        "sellingGeneralAndAdministrative"   ; 
+        "researchAndDevelopment"            ; 
+        "operatingExpenses"                 ; 
+        "investmentIncomeNet"               ; 
+        "netInterestIncome"                 ; 
+        "interestIncome"                    ; 
+        "interestExpense"                   ; 
+        "nonInterestIncome"                 ; 
+        "otherNonOperatingIncome"           ; 
+        "depreciation"                      ; 
+        "depreciationAndAmortization"       ; 
+        "incomeBeforeTax"                   ; 
+        "incomeTaxExpense"                  ; 
+        "interestAndDebtExpense"            ; 
+        "netIncomeFromContinuingOperations" ; 
+        "comprehensiveIncomeNetOfTax"       ; 
+        "ebit"                              ; 
+        "ebitda"                            ; 
+        "netIncome"                         ;
+    ]
+
+    # get the array of annual report dictionaries -
+    list_of_annual_report_dictionaries =  api_data_dictionary["annualReports"]
+    annual_reports_dataframe = DataFrame(fiscalDateEnding=Dates.Date[],reportedCurrency=String[],grossProfit=Union{Float64,Missing}[],
+        totalRevenue=Union{Float64,Missing}[],costOfRevenue=Union{Float64,Missing}[],costofGoodsAndServicesSold=Union{Float64,Missing}[],operatingIncome=Union{Float64,Missing}[],
+        sellingGeneralAndAdministrative=Union{Float64,Missing}[],researchAndDevelopment=Union{Float64,Missing}[],operatingExpenses=Union{Float64,Missing}[],investmentIncomeNet=Union{Float64,Missing}[],
+        netInterestIncome=Union{Float64,Missing}[],interestIncome=Union{Float64,Missing}[],interestExpense=Union{Float64,Missing}[],nonInterestIncome=Union{Float64,Missing}[],otherNonOperatingIncome=Union{Float64,Missing}[],
+        depreciation=Union{Float64,Missing}[],depreciationAndAmortization=Union{Float64,Missing}[],incomeBeforeTax=Union{Float64,Missing}[],incomeTaxExpense=Union{Float64,Missing}[],interestAndDebtExpense=Union{Float64,Missing}[],
+        netIncomeFromContinuingOperations=Union{Float64,Missing}[],comprehensiveIncomeNetOfTax=Union{Float64,Missing}[],ebit=Union{Float64,Missing}[],ebitda=Union{Float64,Missing}[],netIncome=Union{Float64,Missing}[])
+
+    # loop throw, and pakage the annual report values into the dataframe -
+    for annual_report in list_of_annual_report_dictionaries
+        
+        # init the row of data -
+        data_row = Array{Any,1}()
+
+        # go throw all the keys -
+        for annual_report_key in annual_report_key_array
+
+            # ok, so if we have fiscalDateEnding or reportedCurrency we have a non-numeric value
+            clean_value = 0.0
+            if annual_report_key == "fiscalDateEnding"
+                clean_value = Dates.Date(annual_report["fiscalDateEnding"], "yyyy-mm-dd")
+            elseif annual_report_key == "reportedCurrency"
+                clean_value = annual_report["reportedCurrency"]
+            else
+                
+                # grab the value, check if none -
+                value = annual_report[annual_report_key]
+                clean_value = check_for_numerical_none_value(value)
+            end
+            
+            # cache -
+            push!(data_row, clean_value)
+        end
+
+        # push the data row into the data frame -
+        push!(annual_reports_dataframe, tuple(data_row...))
+    end
+    income_statement_data_dictionary["annualReports"] = annual_reports_dataframe
+
+    # process the quarterly reports -
+    list_of_quaterly_report_dictionaries =  api_data_dictionary["quarterlyReports"]
+    quaterly_reports_dataframe = DataFrame(fiscalDateEnding=Dates.Date[],reportedCurrency=String[],grossProfit=Union{Float64,Missing}[],
+        totalRevenue=Union{Float64,Missing}[],costOfRevenue=Union{Float64,Missing}[],costofGoodsAndServicesSold=Union{Float64,Missing}[],operatingIncome=Union{Float64,Missing}[],
+        sellingGeneralAndAdministrative=Union{Float64,Missing}[],researchAndDevelopment=Union{Float64,Missing}[],operatingExpenses=Union{Float64,Missing}[],investmentIncomeNet=Union{Float64,Missing}[],
+        netInterestIncome=Union{Float64,Missing}[],interestIncome=Union{Float64,Missing}[],interestExpense=Union{Float64,Missing}[],nonInterestIncome=Union{Float64,Missing}[],otherNonOperatingIncome=Union{Float64,Missing}[],
+        depreciation=Union{Float64,Missing}[],depreciationAndAmortization=Union{Float64,Missing}[],incomeBeforeTax=Union{Float64,Missing}[],incomeTaxExpense=Union{Float64,Missing}[],interestAndDebtExpense=Union{Float64,Missing}[],
+        netIncomeFromContinuingOperations=Union{Float64,Missing}[],comprehensiveIncomeNetOfTax=Union{Float64,Missing}[],ebit=Union{Float64,Missing}[],ebitda=Union{Float64,Missing}[],netIncome=Union{Float64,Missing}[])
+
+    # loop throw, and pakage the annual report values into the dataframe -> same keys as annualReport
+    for quaterly_report in list_of_quaterly_report_dictionaries
+        
+        # init the row of data -
+        data_row = Array{Any,1}()
+
+        # go throw all the keys -
+        for annual_report_key in annual_report_key_array
+
+            # ok, so if we have fiscalDateEnding or reportedCurrency we have a non-numeric value
+            clean_value = 0.0
+            if annual_report_key == "fiscalDateEnding"
+                clean_value = Dates.Date(quaterly_report["fiscalDateEnding"], "yyyy-mm-dd")
+            elseif annual_report_key == "reportedCurrency"
+                clean_value = quaterly_report["reportedCurrency"]
+            else
+                
+                # grab the value, check if none -
+                value = quaterly_report[annual_report_key]
+                clean_value = check_for_numerical_none_value(value)
+            end
+            
+            # cache -
+            push!(data_row, clean_value)
+        end
+
+        # push the data row into the data frame -
+        push!(quaterly_reports_dataframe, tuple(data_row...))
+    end
+    income_statement_data_dictionary["quarterlyReports"] = quaterly_reports_dataframe
+
+    
+    # return -
+    return PSResult(income_statement_data_dictionary)
 end
