@@ -51,8 +51,16 @@ function execute_sts_intraday_api_call(requestDictionary::Dict{String,Any};
         api_call_result = http_get_call_with_url(api_call_url_string)
         response_body_string = checkresult(api_call_result)
 
-        
-
+        # ok, we process the response body differently depending upon json -or- csv type -
+        data_type = requestDictionary["datatype"]
+        if (Symbol(data_type) == :csv)
+            return process_raw_csv_api_data(response_body_string)
+        elseif (Symbol(data_type) == :json)
+            data_series_key = "Technical Analysis: EMA"
+            return process_raw_json_data_ti_ema_data(response_body_string, data_series_key)
+        else
+            throw(PSError("unsupported datatype in request dictionary"))
+        end
     catch error
         return PSResult(error)
     end
