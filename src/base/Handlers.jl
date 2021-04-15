@@ -121,7 +121,7 @@ function process_raw_json_api_data_sts_adjusted(api_call_raw_data::String, data_
     
     # is the data coming back well formed, and does it contain valid data?
     check_result = check_json_api_return_data(api_call_raw_data)
-    if check_result != nothing
+    if check_result !== nothing
         return check_result
     end
 
@@ -197,6 +197,49 @@ function process_raw_json_api_data_sts_adjusted(api_call_raw_data::String, data_
 
     # return the data back to the caller -
     return PSResult{DataFrame}(data_frame)
+end
+
+function process_raw_json_sts_intraday_data(api_call_raw_data::String)::PSResult
+
+    # if we get here, we have valid JSON. Build dictionary -
+    api_data_dictionary = JSON.parse(api_call_raw_data)
+    overall_intraday_data_dictionary = Dict{String,Any}()
+
+    # grab the Meta Data block -
+    keys_metadata_block = [
+        "1. Information", 
+        "2. Symbol", 
+        "3. Last Refreshed", 
+        "4. Interval", 
+        "5. Output Size", 
+        "6. Time Zone"
+    ]
+    metadata_block_dictionary = api_data_dictionary["Meta Data"]
+    interval_value = metadata_block_dictionary["interval"]
+
+    # process the intraday data dictionary -
+    intraday_data_keys = [
+        "1. open", "2. high", "3. low", "4. close", "5. volume"
+    ]
+
+    # setup the data frame -
+    intraday_dataframe = DataFrame(date=Dates.Date[],open=Union{Missing,Float64}[],close=Union{Missing,Float64}[],
+        high=close=Union{Missing,Float64}[],low=close=Union{Missing,Float64}[],volume=close=Union{Missing,Int64}[])
+
+    data_array_key_string = "Time Series ($(interval_value))"
+    list_of_intraday_dictionaries = api_data_dictionary[data_array_key_string]
+    list_of_timestamp_keys = keys(list_of_intraday_dictionaries)
+    for intraday_timestamp_key in list_of_timestamp_keys
+        
+        # from the intraday timestamp => get the data dictionary -
+        intraday_dictionary = list_of_intraday_dictionaries[intraday_timestamp_key]
+
+
+    end
+
+
+    # return -
+    return PSResult(intraday_data_dictionary)
 end
 
 function process_raw_json_api_data_sts_daily_adjusted(api_call_raw_data::String, data_series_key::String)::(Union{PSResult{T}, Nothing} where T<:Any)
