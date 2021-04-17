@@ -489,6 +489,7 @@ function process_raw_json_data_sts_search_data(api_call_raw_data::String, data_s
     return PSResult{DataFrame}(data_frame)
 end
 
+# Technical indicators --
 function process_raw_json_data_ti_sma_data(api_call_raw_data::String, data_series_key::String)::PSResult
 
     # if we get here, we have valid JSON. Build dictionary -
@@ -658,6 +659,8 @@ function process_raw_json_data_ti_rsi_data(api_call_raw_data::String,
     return PSResult{DataFrame}(data_frame)
 end
 
+
+# Fundamentals -
 function process_raw_json_fundamentals_earnings_data(api_call_raw_data::String)::PSResult
 
     # if we get here, we have valid JSON. Build dictionary -
