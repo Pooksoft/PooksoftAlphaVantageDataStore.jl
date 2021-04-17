@@ -215,15 +215,18 @@ function process_raw_json_sts_intraday_data(api_call_raw_data::String)::PSResult
         "6. Time Zone"
     ]
     metadata_block_dictionary = api_data_dictionary["Meta Data"]
-    interval_value = metadata_block_dictionary["interval"]
+    interval_value = metadata_block_dictionary["4. Interval"]
 
     # process the intraday data dictionary -
     intraday_data_keys = [
         "1. open", "2. high", "3. low", "4. close", "5. volume"
     ]
 
+    # setup date formatter -
+    F = DateFormat("yyyy-mm-dd HH:MM:SS")
+    
     # setup the data frame -
-    intraday_dataframe = DataFrame(date=Dates.Date[],open=Union{Missing,Float64}[],close=Union{Missing,Float64}[],
+    intraday_dataframe = DataFrame(timestamp=Dates.DateTime[],open=Union{Missing,Float64}[],close=Union{Missing,Float64}[],
         high=close=Union{Missing,Float64}[],low=close=Union{Missing,Float64}[],volume=close=Union{Missing,Int64}[])
 
     data_array_key_string = "Time Series ($(interval_value))"
@@ -231,15 +234,35 @@ function process_raw_json_sts_intraday_data(api_call_raw_data::String)::PSResult
     list_of_timestamp_keys = keys(list_of_intraday_dictionaries)
     for intraday_timestamp_key in list_of_timestamp_keys
         
+        # create an empty row -
+        data_row = Array{Union{DateTime,Float64},1}()
+        
+        # format the timestamp -
+        timestamp_value = DateTime(intraday_timestamp_key, F)
+        push!(data_row, timestamp_value)
+
         # from the intraday timestamp => get the data dictionary -
         intraday_dictionary = list_of_intraday_dictionaries[intraday_timestamp_key]
+        for intraday_data_key in intraday_data_keys
+            data_value = intraday_dictionary[intraday_data_key]
+            push!(data_row, parse(Float64,data_value))
+        end
 
-
+        # push into the data frame -
+        push!(intraday_dataframe, tuple(data_row...)) 
     end
 
+    # lets sort by timestamp -
+    timestamp_array = intraday_dataframe[:,:timestamp]
+    idx_sort = sortperm(timestamp_array)
+    sorted_intraday_dataframe = intraday_dataframe[idx_sort,:]
+
+    # package -
+    overall_intraday_data_dictionary["Meta Data"] = metadata_block_dictionary
+    overall_intraday_data_dictionary[data_array_key_string] = sorted_intraday_dataframe
 
     # return -
-    return PSResult(intraday_data_dictionary)
+    return PSResult(overall_intraday_data_dictionary)
 end
 
 function process_raw_json_api_data_sts_daily_adjusted(api_call_raw_data::String, data_series_key::String)::(Union{PSResult{T}, Nothing} where T<:Any)

@@ -39,7 +39,7 @@ _include_my_codes(_PATH_TO_BASE, my_base_codes)
 
 # stock time series -
 my_sts_codes = [
-    "STSDaily.jl", "STSWeekly.jl", "STSMonthly.jl", "Quote.jl", "Search.jl"
+    "STSDaily.jl", "STSWeekly.jl", "STSMonthly.jl", "Quote.jl", "Search.jl", "STSIntraday.jl"
 ]
 _include_my_codes(_PATH_TO_STS, my_sts_codes)
 
