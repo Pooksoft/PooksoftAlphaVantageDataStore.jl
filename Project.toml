@@ -1,7 +1,7 @@
 name = "PooksoftAlphaVantageDataStore"
 uuid = "c3556c8d-123e-4c4d-a897-a0e9ebae0e6b"
 authors = ["Jeffrey Varner <jdv27@cornell.edu>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
